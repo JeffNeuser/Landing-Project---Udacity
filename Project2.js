@@ -37,22 +37,26 @@
 // build the nav
 
 const listNav = function() {
-  let listSections = document.querySelector('list_item');
-  let listSectionHeaders = document.querySelector('section_header');
+  let sections = document.querySelectorAll('section');
 
   let nav = document.createDocumentFragment();
-  for (let i = 0; i < listSections.length; i++) {
+  for (let i = 0; i < sections.length; i++) {
     let navButton = document.createElement('li');
-    let att = document.createAttribute("class");
-    att.value = "list_item";
-    navButton.setAttributeNode(att);
+
+    navButton.className = 'list_item';
+
+    navButton.innerHTML = sections[i].getAttribute('data-nav');
+
     nav.appendChild(navButton);
   }
-  const navList = document.getElementById('navbar_list');
+
+  const navList = document.getElementById('navbar__list');
   navList.appendChild(nav);
 }
+listNav();
 
-
+// const listNav = function() {
+//   let sections = document.querySelectorAll('section');
 // Add class 'active' to section when near top of viewport
 
 
