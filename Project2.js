@@ -63,9 +63,23 @@ listNav();
 
 // Scroll to anchor ID using scrollTO event
 
+listNav.addEventListener('click', function(e) {
+  e.preventDefault();
+  
+  if (e.target.nodeName === "A") {
+    smoothScrolling(e.target);
+  }
+})
+
+function sectionScroll(anchor) {
+  let sectionArray = document.querySelectorAll('sections');
+  let anchorLink = document.querySelectorAll('.menu__link');
+
+  for (let section of sectionArray) {
   
 
-
+    }
+}
 /**
  * End Main Functions
  * Begin Events
