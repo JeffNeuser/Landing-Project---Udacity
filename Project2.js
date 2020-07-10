@@ -23,6 +23,8 @@ let linkAnchor2 = document.querySelector('button_link2');
 let linkAnchor3 = document.querySelector('button_link3');
 let linkAnchor4 = document.querySelector('button_link4');
 let sections = document.querySelectorAll('section');
+let unorderedList = document.getElementById('navbar__list');
+let anchor = document.querySelectorAll('menu_link');
 
 /**
  * End Global Variables
@@ -63,17 +65,15 @@ listNav();
 
 // Scroll to anchor ID using scrollTO event
 
-listNav.addEventListener('click', function(e) {
+unorderedList.addEventListener('click', function(e) {
   e.preventDefault();
   
   if (e.target.nodeName === "A") {
     smoothScrolling(e.target);
-  }
-})
+  };
 
 function sectionScroll(anchor) {
   let sectionArray = document.querySelectorAll('sections');
-  let anchorLink = document.querySelectorAll('.menu__link');
 
   for (let section of sectionArray) {
   
