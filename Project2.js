@@ -18,14 +18,18 @@
  * 
 */
 
-
-
+let linkAnchor1 = document.querySelector('button_link1');
+let linkAnchor2 = document.querySelector('button_link2');
+let linkAnchor3 = document.querySelector('button_link3');
+let linkAnchor4 = document.querySelector('button_link4');
+let sections = document.querySelectorAll('section');
 
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
+
 
 
 /**
@@ -37,8 +41,6 @@
 // build the nav
 
 const listNav = function() {
-  let sections = document.querySelectorAll('section');
-
   let nav = document.createDocumentFragment();
   for (let i = 0; i < sections.length; i++) {
     let navButton = document.createElement('li');
@@ -55,12 +57,13 @@ const listNav = function() {
 }
 listNav();
 
-// const listNav = function() {
-//   let sections = document.querySelectorAll('section');
+
 // Add class 'active' to section when near top of viewport
 
 
 // Scroll to anchor ID using scrollTO event
+
+  
 
 
 /**
@@ -73,4 +76,19 @@ listNav();
 
 // Scroll to section on link click
 
+
+
 // Set sections as active
+
+let listButtons = document.querySelectorAll('menu__link');
+
+const sectionsActive = function() {
+  for (let i = 0; i < sections.length; i++) {
+    if (!checkViewport(sections[i])) {
+    sections.classList.remove('active');
+    } else {
+    sections.classList.add('active');
+    }
+}
+}
+sectionsActive();
