@@ -13,96 +13,59 @@
  * 
 */
 
-/**
- * Define Global Variables
- * 
-*/
+// Define global variables
 
-let linkAnchor1 = document.querySelector('button_link1');
-let linkAnchor2 = document.querySelector('button_link2');
-let linkAnchor3 = document.querySelector('button_link3');
-let linkAnchor4 = document.querySelector('button_link4');
-let sections = document.querySelectorAll('section');
-let unorderedList = document.getElementById('navbar__list');
-let anchor = document.querySelectorAll('menu_link');
 
-/**
- * End Global Variables
- * Start Helper Functions
- * 
-*/
+const mainElement = document.querySelector('main');
+const navbarMenu = document.querySelector('#navbar__list');
 
 
 
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
+// Dynamically build navbar
 
-// build the nav
 
-const listNav = function() {
-  let nav = document.createDocumentFragment();
-  for (let i = 0; i < sections.length; i++) {
-    let navButton = document.createElement('li');
+const sectionElements = document.querySelectorAll('section');
 
-    navButton.className = 'list_item';
+sectionElements.forEach(section => {
+  navbarMenu.insertAdjacentHTML('beforeend', `<li><a href="${section.id}">${section.dataset.nav}</a></li>`)
+});
 
-    navButton.innerHTML = sections[i].getAttribute('data-nav');
+const navbarList = document.querySelectorAll('li');
 
-    nav.appendChild(navButton);
+navbarList.forEach(item => {
+  item.setAttribute('class', 'menu__link');
+});
+
+// Add/remove active classes
+const addActive = (inView, section, item) => {
+  if (inView) {
+    section.classList.add('your-active-class');
+    item.classList.add('link__active');
   }
-
-  const navList = document.getElementById('navbar__list');
-  navList.appendChild(nav);
 }
-listNav();
-
-
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-unorderedList.addEventListener('click', function(e) {
-  e.preventDefault();
-  
-  if (e.target.nodeName === "A") {
-    smoothScrolling(e.target);
-  };
-
-function sectionScroll(anchor) {
-  let sectionArray = document.querySelectorAll('sections');
-
-  for (let section of sectionArray) {
-  
-
-    }
+const inActive = (section, item) => {
+  section.classList.remove('your-active-class');
+  item.classList.remove('link__active');
 }
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
 
-// Build menu 
-
-// Scroll to section on link click
-
-
-
-// Set sections as active
-
-let listButtons = document.querySelectorAll('menu__link');
-
-const sectionsActive = function() {
-  for (let i = 0; i < sections.length; i++) {
-    if (!checkViewport(sections[i])) {
-    sections.classList.remove('active');
-    } else {
-    sections.classList.add('active');
-    }
+const activeSection = () => {
+  navbarList.forEach(item => {
+    const section = document.getElementById(item.firstChild.getAttribute('href'));
+    const sectionOffset = (Math.floor(section.getBoundingClientRect().top));
+    
+    inActive(section, item);
+    addActive((sectionOffset < 200 && sectionOffset >= -200), section, item);
+  })
 }
-}
-sectionsActive();
+window.addEventListener('scroll', activeSection);
+
+// Scroll to anchor ID with ScrollTo
+document.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      document.getElementById(a.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+  });
+});
